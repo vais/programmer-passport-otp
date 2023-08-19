@@ -1,18 +1,30 @@
 defmodule Calculator do
-  @moduledoc """
-  Documentation for `Calculator`.
-  """
+  def start(state) do
+    Calculator.Boundary.start(state)
+  end
 
-  @doc """
-  Hello world.
+  def add(calculator, number) do
+    send(calculator, {:add, number})
+    calculator
+  end
 
-  ## Examples
+  def subtract(calculator, number) do
+    send(calculator, {:subtract, number})
+    calculator
+  end
 
-      iex> Calculator.hello()
-      :world
+  def equals(calculator) do
+    send(calculator, {:equals, self()})
 
-  """
-  def hello do
-    :world
+    receive do
+      {:result, result} -> result
+    after
+      5000 -> {:error, :timeout}
+    end
+  end
+
+  def clear(calculator) do
+    send(calculator, {:clear})
+    calculator
   end
 end
