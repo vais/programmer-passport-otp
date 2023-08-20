@@ -1,4 +1,5 @@
 defmodule Calculator.Core do
+  def negate(acc), do: acc * -1
   def add(acc, num), do: acc + num
   def subtract(acc, num), do: acc - num
   def multiply(acc, num), do: acc * num

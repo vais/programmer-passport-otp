@@ -11,6 +11,10 @@ defmodule Calculator.Server do
     {:ok, state}
   end
 
+  def handle_cast(:negate, state) do
+    {:noreply, Core.negate(state)}
+  end
+
   def handle_cast({:add, num}, state) do
     {:noreply, Core.add(state, num)}
   end

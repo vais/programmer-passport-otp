@@ -3,6 +3,7 @@ defmodule Calculator.CoreTest do
 
   import Calculator.Core
 
+  test "negation", do: assert(negate(3) == -3)
   test "addition", do: assert(add(1, 2) == 3)
   test "subtraction", do: assert(subtract(1, 2) == -1)
   test "multiplicaton", do: assert(multiply(1, 2) == 2)

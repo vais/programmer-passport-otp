@@ -4,6 +4,11 @@ defmodule Calculator do
     pid
   end
 
+  def negate(calculator) do
+    :ok = GenServer.cast(calculator, :negate)
+    calculator
+  end
+
   def add(calculator, number) do
     :ok = GenServer.cast(calculator, {:add, number})
     calculator
