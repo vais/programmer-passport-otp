@@ -30,4 +30,8 @@ defmodule Calculator.Server do
   def handle_call(:equals, _from, state) do
     {:reply, state, state}
   end
+
+  def handle_info(:inc, state) do
+    {:noreply, Core.inc(state)}
+  end
 end

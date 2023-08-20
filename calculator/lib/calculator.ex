@@ -24,6 +24,11 @@ defmodule Calculator do
     calculator
   end
 
+  def inc(calculator) do
+    send(calculator, :inc)
+    calculator
+  end
+
   def equals(calculator) do
     GenServer.call(calculator, :equals)
   end

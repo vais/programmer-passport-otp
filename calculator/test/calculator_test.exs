@@ -7,6 +7,14 @@ defmodule CalculatorTest do
     %{calculator: start(0)}
   end
 
+  test "incrementing", %{calculator: calculator} do
+    calculator
+    |> inc()
+    |> inc()
+
+    assert equals(calculator) == 2
+  end
+
   test "negation", %{calculator: calculator} do
     calculator
     |> add(3)
