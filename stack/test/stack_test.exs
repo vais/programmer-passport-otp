@@ -1,8 +1,21 @@
 defmodule StackTest do
   use ExUnit.Case
-  doctest Stack
 
-  test "greets the world" do
-    assert Stack.hello() == :world
+  import Stack
+
+  setup do
+    %{stack: start()}
+  end
+
+  test "state/1", %{stack: stack} do
+    assert state(stack) == []
+  end
+
+  test "push/2", %{stack: stack} do
+    stack
+    |> push(:hi)
+    |> push(:bye)
+
+    assert state(stack) == [:bye, :hi]
   end
 end

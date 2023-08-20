@@ -1,18 +1,15 @@
 defmodule Stack do
-  @moduledoc """
-  Documentation for `Stack`.
-  """
+  def start() do
+    {:ok, stack} = GenServer.start(Stack.Server, [])
+    stack
+  end
 
-  @doc """
-  Hello world.
+  def state(stack) do
+    GenServer.call(stack, :state)
+  end
 
-  ## Examples
-
-      iex> Stack.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def push(stack, term) do
+    :ok = GenServer.cast(stack, {:push, term})
+    stack
   end
 end
