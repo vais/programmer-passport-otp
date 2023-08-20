@@ -1,30 +1,25 @@
 defmodule Calculator do
   def start(state) do
-    Calculator.Boundary.start(state)
+    {:ok, pid} = Calculator.Server.start_link(state)
+    pid
   end
 
   def add(calculator, number) do
-    send(calculator, {:add, number})
+    :ok = GenServer.cast(calculator, {:add, number})
     calculator
   end
 
   def subtract(calculator, number) do
-    send(calculator, {:subtract, number})
+    :ok = GenServer.cast(calculator, {:subtract, number})
+    calculator
+  end
+
+  def clear(calculator) do
+    :ok = GenServer.cast(calculator, :clear)
     calculator
   end
 
   def equals(calculator) do
-    send(calculator, {:equals, self()})
-
-    receive do
-      {:result, result} -> result
-    after
-      5000 -> {:error, :timeout}
-    end
-  end
-
-  def clear(calculator) do
-    send(calculator, {:clear})
-    calculator
+    GenServer.call(calculator, :equals)
   end
 end
