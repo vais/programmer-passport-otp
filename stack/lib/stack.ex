@@ -1,6 +1,6 @@
 defmodule Stack do
   def start() do
-    {:ok, stack} = GenServer.start(Stack.Server, [])
+    {:ok, stack} = GenServer.start_link(Stack.Server, [])
     stack
   end
 
@@ -11,5 +11,9 @@ defmodule Stack do
   def push(stack, term) do
     :ok = GenServer.cast(stack, {:push, term})
     stack
+  end
+
+  def pop(stack) do
+    GenServer.call(stack, :pop)
   end
 end

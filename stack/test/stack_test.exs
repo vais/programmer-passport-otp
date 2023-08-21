@@ -18,4 +18,13 @@ defmodule StackTest do
 
     assert state(stack) == [:bye, :hi]
   end
+
+  test "pop/1", %{stack: stack} do
+    stack
+    |> push(:hi)
+    |> push(:bye)
+
+    assert pop(stack) == :bye
+    assert state(stack) == [:hi]
+  end
 end
