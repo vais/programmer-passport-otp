@@ -1,18 +1,15 @@
 defmodule Counter do
-  @moduledoc """
-  Documentation for `Counter`.
-  """
+  def start_link(initial_value) do
+    {:ok, pid} = GenServer.start_link(Counter.Server, initial_value)
+    pid
+  end
 
-  @doc """
-  Hello world.
+  def state(counter) do
+    GenServer.call(counter, :state)
+  end
 
-  ## Examples
-
-      iex> Counter.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def increment(counter) do
+    :ok = GenServer.cast(counter, :increment)
+    counter
   end
 end
