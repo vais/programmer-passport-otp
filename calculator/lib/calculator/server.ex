@@ -3,35 +3,31 @@ defmodule Calculator.Server do
 
   alias Calculator.Core
 
-  def start_link(state) do
-    GenServer.start_link(__MODULE__, state)
-  end
-
   def init(state) do
     {:ok, state}
   end
 
-  def handle_cast(:negate, state) do
-    {:noreply, Core.negate(state)}
+  def handle_call(:negate, _from, state) do
+    {:reply, :ok, Core.negate(state)}
   end
 
-  def handle_cast({:add, num}, state) do
-    {:noreply, Core.add(state, num)}
+  def handle_call({:add, num}, _from, state) do
+    {:reply, :ok, Core.add(state, num)}
   end
 
-  def handle_cast({:subtract, num}, state) do
-    {:noreply, Core.subtract(state, num)}
+  def handle_call({:subtract, num}, _from, state) do
+    {:reply, :ok, Core.subtract(state, num)}
   end
 
-  def handle_cast(:clear, _state) do
-    {:noreply, 0}
+  def handle_call(:clear, _from, _state) do
+    {:reply, :ok, 0}
+  end
+
+  def handle_call(:inc, _from, state) do
+    {:reply, :ok, Core.inc(state)}
   end
 
   def handle_call(:equals, _from, state) do
     {:reply, state, state}
-  end
-
-  def handle_info(:inc, state) do
-    {:noreply, Core.inc(state)}
   end
 end

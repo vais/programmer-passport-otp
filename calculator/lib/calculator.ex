@@ -1,31 +1,31 @@
 defmodule Calculator do
   def start(state) do
-    {:ok, pid} = Calculator.Server.start_link(state)
+    {:ok, pid} = GenServer.start_link(Calculator.Server, state)
     pid
   end
 
   def negate(calculator) do
-    :ok = GenServer.cast(calculator, :negate)
+    :ok = GenServer.call(calculator, :negate)
     calculator
   end
 
   def add(calculator, number) do
-    :ok = GenServer.cast(calculator, {:add, number})
+    :ok = GenServer.call(calculator, {:add, number})
     calculator
   end
 
   def subtract(calculator, number) do
-    :ok = GenServer.cast(calculator, {:subtract, number})
+    :ok = GenServer.call(calculator, {:subtract, number})
     calculator
   end
 
   def clear(calculator) do
-    :ok = GenServer.cast(calculator, :clear)
+    :ok = GenServer.call(calculator, :clear)
     calculator
   end
 
   def inc(calculator) do
-    send(calculator, :inc)
+    :ok = GenServer.call(calculator, :inc)
     calculator
   end
 
