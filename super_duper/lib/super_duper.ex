@@ -1,18 +1,17 @@
 defmodule SuperDuper do
-  @moduledoc """
-  Documentation for `SuperDuper`.
-  """
+  def child_spec(character) do
+    %{id: character, start: {__MODULE__, :start_link, [character]}}
+  end
 
-  @doc """
-  Hello world.
+  def start_link(character) do
+    GenServer.start_link(SuperDuper.Server, character, name: character)
+  end
 
-  ## Examples
+  def say(character) do
+    GenServer.call(character, :say)
+  end
 
-      iex> SuperDuper.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def kill(character) do
+    GenServer.cast(character, :die)
   end
 end

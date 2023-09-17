@@ -8,8 +8,9 @@ defmodule SuperDuper.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: SuperDuper.Worker.start_link(arg)
-      # {SuperDuper.Worker, arg}
+      {SuperDuper, :supermario},
+      {SuperDuper, :superdave},
+      {SuperDuper, :superman}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
