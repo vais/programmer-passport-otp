@@ -1,6 +1,10 @@
 defmodule SuperDuper.Server do
   use GenServer
 
+  def init({_character, _phrase} = info) do
+    {:ok, info}
+  end
+
   def init(character) do
     {:ok, SuperDuper.Core.info(character)}
   end
